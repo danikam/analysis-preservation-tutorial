@@ -13,11 +13,6 @@ keypoints:
 # Customizing our Analysis Image
 As we've seen, it's pretty quick to 'manually' customize the `python:3.7` base image to run our analysis code, we just need to do a few `pip` installs. But eventually it would get annoying to have to re-do these pip installs every time we want to bring up a new container to run the code. So let's just do it once and for all with a Dockerfile.
 
-~~~bash
-docker tag <SOURCE_IMAGE[:TAG]> <TARGET_IMAGE[:TAG]>
-~~~
-{: .source}
-
 > ## Make your analysis image
 >
 > Go to the top level of your tutorial directory, and create a `Dockerfile`

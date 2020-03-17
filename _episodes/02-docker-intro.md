@@ -304,5 +304,6 @@ docker build -f Dockerfile.copy -t copy-example:latest .
 For very complex scripts or files that are on some remote, `COPY` offers a straightforward
 way to bring them into the Docker build.
 
+[docker-docs-COPY]: https://docs.docker.com/engine/reference/builder/#copy
 
 {% include links.md %}
