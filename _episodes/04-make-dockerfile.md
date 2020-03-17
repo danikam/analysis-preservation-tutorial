@@ -15,6 +15,8 @@ As we've seen, it's pretty quick to 'manually' customize the `python:3.7` base i
 
 > ## Make your analysis image
 >
+> ### Write the Dockerfile
+> 
 > Go to the top level of your tutorial directory, and create a `Dockerfile`
 >
 > ~~~bash
