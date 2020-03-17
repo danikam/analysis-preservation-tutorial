@@ -14,7 +14,7 @@ keypoints:
 
 # Going beyond a one-step workflow
 
-You've now fully preserved our analysis code and environment in a docker image. The analysis workflow is fully automated with the one-step `steps.yml` and `workflow.yml` files we've created, and produces the expected output in a reasonable amount of time. So in principle, your work is done - you've successfully preserved this analysis! 
+You've now fully preserved your analysis code and environment in a docker image. The analysis workflow is fully automated with the one-step `steps.yml` and `workflow.yml` files we've created, and produces the expected output in a reasonable amount of time. So in principle, your work is done - you've successfully preserved this analysis! 
 
 But before we share a celebratory hoorah and disperse, I want to give you a taste of how this simple workflow could be optimized if we found ourselves facing a more computationally intensive analysis (think fraction-of-second ML training --> several hours). 
 
