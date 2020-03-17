@@ -15,6 +15,7 @@ keypoints:
 First, make a directory for this tutorial, eg. `uvic_analysis_preservation`, and make a directory named `scripts` to contain any python scripts you use for the tutorial:
 
 ~~~bash
+cd ..
 mkdir uvic_analysis_preservation
 cd uvic_analysis_preservation
 mkdir scripts

@@ -16,7 +16,7 @@ keypoints:
 
 You've now fully preserved our analysis code and environment in a docker image. The analysis workflow is fully automated with the one-step `steps.yml` and `workflow.yml` files we've created, and produces the expected output in a reasonable amount of time. So in principle, your work is done - you've successfully preserved this analysis! 
 
-But before we share a celebratory hoorah and disperse, I'd want to give you a taste of how this simple workflow could be optimized if we found ourselves facing a more computationally intensive analysis (think fraction-of-second ML training --> several hours). 
+But before we share a celebratory hoorah and disperse, I want to give you a taste of how this simple workflow could be optimized if we found ourselves facing a more computationally intensive analysis (think fraction-of-second ML training --> several hours). 
 
 # Modularizing the workflow
 
@@ -42,14 +42,14 @@ wget https://raw.githubusercontent.com/danikam/ml_workflows/master/scripts/merge
 Since we've added more scripts, re-build the docker image so it includes these new scripts:
 
 ~~~bash
-cd /root/uvic_analysis_preservation
+cd ..
 docker build -t [your_docker_hub_username]/sklearn .
 docker push [your_docker_hub_username]/sklearn
 ~~~
 
 # Divide and conquer
 
-The original analysis code loops over all 5 classifiers sequentially and fits each to the data. This situation is just shouting to be parallelized. 
+The original analysis code loops over all 5 classifiers sequentially and fits each to the data. This is just shouting to be parallelized. 
 
 One of the strengths of yadage is how readily it accommodates workflow parallelization. So rather than looping over classifiers, the ML training step has been updated to receive a single classifier to train as input, and use yadage to parallelize the training over all 5 classifiers:
 
@@ -75,8 +75,9 @@ gets replaced with an input argument to the [ML training script](https://raw.git
 Make a new directory to contain the parallelized workflow and `cd` into it:
 
 ~~~bash
-mkdir /root/uvic_analysis_preservation/workflow_parallel
-cd /root/uvic_analysis_preservation/workflow_parallel
+cd ~/uvic_analysis_preservation
+mkdir workflow_parallel
+cd workflow_parallel
 ~~~
 
 Create a new set of `steps.yml` and `workflow.yml` files with three steps defined:
@@ -184,10 +185,17 @@ Intermediate output from the `data_prep` and `classification` stages is now save
 
 This workflow is getting pretty complex, and I don't expect you to follow it in gory detail. What I'd like to highlight though is that the `workflow.yml` now uses the `multistep-stage` scheduler type and a new `scatter` field to tell yadage to run the ML training (a.k.a. "classification") step over the five classifiers in parallel. The `merge_and_visualize` step then uses the `flatten: true` specification for the `ml_inputs` parameter representing the five output files with results from parallelized ML training step to read in these files as a flattened list and then visualize them side-by-side.  
 
-We can visualize all of this by running the workflow with yadage and looking at the generated workflow diagram:
+You can visualize all of this by running the workflow with yadage and looking at the generated workflow diagram in `workdir/_yadage/yadage_workflow_instance.pdf`:
 
 ~~~bash
+docker run --rm -it -e PACKTIVITY_WITHIN_DOCKER=true -v $PWD:$PWD -w $PWD -v /var/run/docker.sock:/var/run/docker.sock yadage/yadage sh
 yadage-run workdir workflow.yml inputs.yml --visualize
 ~~~
+
+<img src="../fig/yadage_workflow_instance.png" alt="onestep" style="width:800px">
+
+You can also verify that the visualization of the ML training results located in `workdir/merge_and_visualize/ml_results.png` looks as expected:
+
+<img src="../fig/ml_results.png" alt="multistep" style="width:1000px">
 
 {% include links.md %}

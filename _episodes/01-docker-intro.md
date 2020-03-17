@@ -24,10 +24,6 @@ It is quite thorough and useful.
 It is an excellent guide that should be routinely visited, but the emphasis of this
 introduction is on using Docker, not how Docker itself works.
 
-A note up front, Docker has very similar syntax to Git and Linux, so if you are familiar
-with the command line tools for them then most of Docker should seem somewhat natural
-(though you should still read the docs!).
-
 [![Docker logo](https://www.docker.com/sites/default/files/social/docker_twitter_share_new.png)](https://www.docker.com/)
 
 # What's a Docker Container?

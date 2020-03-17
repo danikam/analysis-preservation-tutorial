@@ -21,7 +21,7 @@ In this tutorial, we'll use yadage to run and execute our analysis workflow.
 * a yaml-based syntax for describing workflows made up of containerized steps, and
 * an execution engine for actually running these workflows.
 
-In the yadage approach, the workflow is divided into distinct steps, called packaged activities - or "packtivities" - each of which will run inside a docker container. The steps, encoded with a `steps.yml` file get linked into a workflow, encoded with a `workflow.yml` file, by specifying how the output from each such packtivity step feeds in as the input for subsequent steps. 
+In the yadage approach, the workflow is divided into distinct steps, called packaged activities - or "packtivities" - each of which will run inside a docker container. The steps, encoded with a `steps.yml` file get linked into a workflow, encoded with a `workflow.yml` file, by specifying how the output from each step feeds in as the input for subsequent steps. 
 
 This flow of dependencies is not necessarily linear. The yadage workflow engine optimizes the execution of the workflow by running steps in parallel whenever possible. 
 
@@ -114,8 +114,7 @@ Now, from inside the yadage container, run the workflow as follows:
 
 ~~~bash
 cd workflow_onestep
-yadage-run -p dataset='https://www.dropbox.com/s/ovyxd3
-q4td7jd3m/moon.txt?dl=1' --visualize
+yadage-run -p dataset="https://www.dropbox.com/s/ovyxd3q4td7jd3m/moon.txt?dl=1" --visualize
 ~~~
 
 The output should look like:
